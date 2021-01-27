@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('Build application'){
             steps{
-                sh 'mvn -f mycoolwebapp/pom.xml clean package'
+                sh 'mvn -f pom.xml clean package'
             }
             post{
                 success{
@@ -12,21 +12,12 @@ pipeline{
                 }
             }
         }
-        stage('deploy in development'){
+        stage('Create Tomcat Image'){
             steps{
-                build job: 'Deploy'
+                sh "pwd"
+                sh "ls -a"
+                sh "docker build . -t tomcatsamplewebapp:3" 
             }
-        }
-        stage('Production Stage'){
-            steps{
-                timeout(time:5,unit:'DAYS'){
-                    input message :'Approve Production Deployment!!?'
-                }
-                build job:'Pipeline to Production Environment'
-
-            }
-            
-            
         }
     }      
 }
