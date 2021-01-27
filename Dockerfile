@@ -1,6 +1,6 @@
 FROM tomcat:8.0
 
-ADD mycoolwebapp.war /usr/local/tomcat/webapps/
+ADD target/mycoolwebapp.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
 
